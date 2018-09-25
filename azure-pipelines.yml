@@ -40,11 +40,11 @@ steps:
 - task: PublishBuildArtifacts@1
   displayName: 'Publish website content'
   inputs:
-    PathToPublish: '$(Build.ArtifactStagingDirectory)/dist'
+    PathToPublish: '$(Build.ArtifactStagingDirectory)/web'
     ArtifactName: web
 
 - task: PublishBuildArtifacts@1
   displayName: 'Publish ARM templates'
   inputs:
-    PathToPublish: '$(Build.ArtifactStagingDirectory)/deploy'
+    PathToPublish: '$(Build.ArtifactStagingDirectory)/arm'
     ArtifactName: arm
