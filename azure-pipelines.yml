@@ -1,5 +1,6 @@
 resources:
 - repo: self
+name: $(date:yyyy).1.0$(rev:.rrr)
 queue:
   name: Hosted Linux Preview
   demands: npm
