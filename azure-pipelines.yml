@@ -1,0 +1,27 @@
+resources:
+- repo: self
+queue:
+  name: Hosted Linux Preview
+  demands: npm
+
+steps:
+- task: Npm@1
+  displayName: 'npm install'
+  inputs:
+    verbose: false
+
+- task: Npm@1
+  displayName: 'npm build'
+  inputs:
+    command: custom
+    verbose: false
+    customCommand: 'run build'
+
+- task: CopyFiles@2
+  displayName: 'Copy dist to artifacts'
+  inputs:
+    SourceFolder: dist
+    TargetFolder: '$(Build.ArtifactStagingDirectory)'
+
+- task: PublishBuildArtifacts@1
+  displayName: 'Publish Artifact: drop'
