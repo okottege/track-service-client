@@ -29,13 +29,13 @@ steps:
   displayName: 'Copy dist to artifacts'
   inputs:
     SourceFolder: dist
-    TargetFolder: '$(Build.ArtifactStagingDirectory)'
+    TargetFolder: '$(Build.ArtifactStagingDirectory)/web'
 
 - task: CopyFiles@2
   displayName: 'Copy ARM Templates to artifacts'
   inputs:
     SourceFolder: deploy
-    TargetFolder: '$(Build.ArtifactStagingDirectory)'
+    TargetFolder: '$(Build.ArtifactStagingDirectory)/arm'
 
 - task: PublishBuildArtifacts@1
   displayName: 'Publish website content'
