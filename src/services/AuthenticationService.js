@@ -38,7 +38,26 @@ export default class AuthenticationService {
     });
   }
 
-  setSession () {
+  setSession (authResult) {
+    let expiresAt = JSON.stringify(authResult.expiresIn * 1000 + new Date().getTime());
+    localStorage.setItem('access_token', authResult.accessToken);
+    localStorage.setItem('id_token', authResult.idToken);
+    localStorage.setItem('expires_at', expiresAt);
 
+    this.authNotifier.emit('authChange', { authenticated: true });
+  }
+
+  logout () {
+    localStorage.removeItem('access_token');
+    localStorage.removeItem('id_token');
+    localStorage.removeItem('expires_at');
+    this.userProfile = null;
+    this.authNotifier.emit('authChange', false);
+    router.replace('home');
+  }
+
+  isAuthenticated () {
+    let expiresAt = JSON.parse(localStorage.getItem('expires_at'));
+    return new Date().getTime() < expiresAt;
   }
 }
