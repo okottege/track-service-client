@@ -20,11 +20,6 @@
         </div>
       </div>
     </nav>
-
-    <!-- <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </div> -->
     <div class="container">
       <router-view :auth="auth" :authenticated="authenticated" />
     </div>
