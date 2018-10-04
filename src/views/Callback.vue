@@ -12,7 +12,7 @@ export default {
     this.auth.handleAuthentication();
     return {};
   }
-}
+};
 </script>
 
 <style>
