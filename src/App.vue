@@ -3,8 +3,8 @@
     <nav class="navbar navbar-default">
       <div class="container-fluid">
         <div class="navbar-header">
-          <router-link to="/">Home</router-link> |
-          <router-link to="/about">About</router-link>
+          <router-link to="/" class="btn btn-primary btn-margin">Home</router-link> |
+          <router-link to="/about" class="btn btn-primary btn-margin">About</router-link> |
           <button
              class="btn btn-primary btn-margin"
              v-if="!authenticated"

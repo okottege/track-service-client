@@ -17,7 +17,7 @@ export default class AuthenticationService {
   auth0 = new auth0.WebAuth({
     domain: AUTH_CONFIG.domain,
     clientID: AUTH_CONFIG.clientId,
-    redirectUri: AUTH_CONFIG.redirectUri,
+    redirectUri: `${window.location.origin}${AUTH_CONFIG.redirectPath}`,
     responseType: 'token id_token',
     scope: 'openid'
   });
@@ -30,9 +30,9 @@ export default class AuthenticationService {
     this.auth0.parseHash((err, authResult) => {
       if (authResult && authResult.accessToken && authResult.idToken) {
         this.setSession(authResult);
-        router.replace('home');
+        router.replace('/');
       } else if (err) {
-        router.replace('home');
+        router.replace('/');
         console.log('Error handling authentication ', err);
       }
     });
@@ -53,7 +53,7 @@ export default class AuthenticationService {
     localStorage.removeItem('expires_at');
     this.userProfile = null;
     this.authNotifier.emit('authChange', false);
-    router.replace('home');
+    router.replace('/');
   }
 
   isAuthenticated () {
