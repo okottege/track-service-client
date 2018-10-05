@@ -1,8 +1,10 @@
 import Vue from 'vue';
 import Router from 'vue-router';
+
 import Home from './views/Home.vue';
 import NotFound from './views/NotFound.vue';
 import Callback from './views/Callback.vue';
+import HealthCheck from './views/HealthCheck';
 
 Vue.use(Router);
 
@@ -24,6 +26,7 @@ export default new Router({
       component: () => import(/* webpackChunkName: "about" */ './views/About.vue')
     },
     { path: '/callback', name: 'callback', component: Callback },
+    { path: '/health', name: 'healthCheck', component: HealthCheck },
     { path: '*', component: NotFound }
   ]
 });

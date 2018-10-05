@@ -16,6 +16,7 @@ export default class AuthenticationService {
 
   auth0 = new auth0.WebAuth({
     domain: AUTH_CONFIG.domain,
+    audience: 'https://test-tracking-service-api.azurewebsites.net',
     clientID: AUTH_CONFIG.clientId,
     redirectUri: `${window.location.origin}${AUTH_CONFIG.redirectPath}`,
     responseType: 'token id_token',
@@ -40,6 +41,7 @@ export default class AuthenticationService {
 
   setSession (authResult) {
     let expiresAt = JSON.stringify(authResult.expiresIn * 1000 + new Date().getTime());
+    console.log('Auth result is: ', authResult);
     localStorage.setItem('access_token', authResult.accessToken);
     localStorage.setItem('id_token', authResult.idToken);
     localStorage.setItem('expires_at', expiresAt);
@@ -59,5 +61,9 @@ export default class AuthenticationService {
   isAuthenticated () {
     let expiresAt = JSON.parse(localStorage.getItem('expires_at'));
     return new Date().getTime() < expiresAt;
+  }
+
+  getAccessToken () {
+    return this.isAuthenticated() ? localStorage.getItem('access_token') : undefined;
   }
 }

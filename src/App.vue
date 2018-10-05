@@ -1,25 +1,33 @@
 <template>
   <div id="app">
-    <nav class="navbar navbar-default">
-      <div class="container-fluid">
-        <div class="navbar-header">
-          <router-link to="/" class="btn btn-primary btn-margin">Home</router-link> |
-          <router-link to="/about" class="btn btn-primary btn-margin">About</router-link> |
-          <button
-             class="btn btn-primary btn-margin"
-             v-if="!authenticated"
-             @click="login()">
-            Login
-          </button>
-          <button
-             class="btn btn-primary btn-margin"
-             v-if="authenticated"
-             @click="logout()">
-            Logout
-          </button>
-        </div>
-      </div>
-    </nav>
+    <b-navbar toggleable="md" type="info" variant="light">
+      <b-navbar-toggle target="nav_collapse"></b-navbar-toggle>
+      <b-collapse is-nav id="nav_collapse">
+        <b-navbar-nav>
+          <b-nav-item href="#">
+            <router-link to="/">Home</router-link>
+          </b-nav-item>
+          <b-nav-item href="#">
+            <router-link to="/about">About</router-link>
+          </b-nav-item>
+          <b-nav-item>
+            <router-link v-if="authenticated" to="/health">Health Check</router-link>
+          </b-nav-item>
+          <b-nav-item>
+            <b-button :variant="primary"
+              v-if="!authenticated"
+              @click="login()">
+              Login
+            </b-button>
+            <b-button :variant="primary"
+              v-if="authenticated"
+              @click="logout()">
+              Logout
+            </b-button>
+          </b-nav-item>
+        </b-navbar-nav>
+      </b-collapse>
+    </b-navbar>
     <div class="container">
       <router-view :auth="auth" :authenticated="authenticated" />
     </div>
