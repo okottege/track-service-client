@@ -1,7 +1,6 @@
 import HealthCheckService from '../../services/HealthCheckService';
 
 const token = localStorage.getItem('access_token');
-console.log('token is: ', token);
 const service = new HealthCheckService(token);
 
 const state = {

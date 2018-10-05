@@ -14,12 +14,12 @@
             <router-link v-if="authenticated" to="/health">Health Check</router-link>
           </b-nav-item>
           <b-nav-item>
-            <b-button :variant="primary"
+            <b-button variant="primary"
               v-if="!authenticated"
               @click="login()">
               Login
             </b-button>
-            <b-button :variant="primary"
+            <b-button variant="primary"
               v-if="authenticated"
               @click="logout()">
               Logout
