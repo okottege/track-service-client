@@ -1,8 +1,5 @@
 import HealthCheckService from '../../services/HealthCheckService';
 
-const token = localStorage.getItem('access_token');
-const service = new HealthCheckService(token);
-
 const state = {
   healthInfo: null
 };
@@ -11,6 +8,7 @@ const getters = {};
 
 const actions = {
   async getHealth ({ commit }) {
+    const service = new HealthCheckService(localStorage.getItem('access_token'));
     const info = await service.getHealthCheckInfo();
     commit('setHealthInfo', info);
   }
