@@ -41,7 +41,6 @@ export default class AuthenticationService {
 
   setSession (authResult) {
     let expiresAt = JSON.stringify(authResult.expiresIn * 1000 + new Date().getTime());
-    console.log('Auth result is: ', authResult);
     localStorage.setItem('access_token', authResult.accessToken);
     localStorage.setItem('id_token', authResult.idToken);
     localStorage.setItem('expires_at', expiresAt);
