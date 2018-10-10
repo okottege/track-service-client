@@ -32,21 +32,9 @@
 </template>
 
 <script>
-import AuthService from '../services/AuthenticationService';
-const auth = new AuthService();
-const { login, logout, authenticated, authNotifier } = auth;
 
 export default {
   name: 'site-navigation',
-  data () {
-    authNotifier.on('authChange', authState => {
-      this.authenticated = authState.authenticated;
-    });
-
-    return { auth, authenticated };
-  },
-  methods: {
-    login, logout
-  }
+  props: ['login', 'logout', 'authenticated']
 };
 </script>
