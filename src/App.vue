@@ -1,6 +1,7 @@
 <template>
   <div id="app">
-    <b-navbar toggleable="md" type="info" variant="light">
+    <site-navigation />
+    <!-- <b-navbar toggleable="md" type="info" variant="light">
       <b-navbar-toggle target="nav_collapse"></b-navbar-toggle>
       <b-collapse is-nav id="nav_collapse">
         <b-navbar-nav>
@@ -29,7 +30,7 @@
           </b-nav-item>
         </b-navbar-nav>
       </b-collapse>
-    </b-navbar>
+    </b-navbar> -->
     <div class="container">
       <router-view :auth="auth" :authenticated="authenticated" />
     </div>
@@ -37,21 +38,25 @@
 </template>
 
 <script>
-import AuthService from './services/AuthenticationService';
-const auth = new AuthService();
-const { login, logout, authenticated, authNotifier } = auth;
+import SiteNavigation from '@/components/SiteNavigation';
+// import AuthService from './services/AuthenticationService';
+// const auth = new AuthService();
+// const { login, logout, authenticated, authNotifier } = auth;
 
 export default {
   name: 'app',
-  data () {
-    authNotifier.on('authChange', authState => {
-      this.authenticated = authState.authenticated;
-    });
+  // data () {
+  //   authNotifier.on('authChange', authState => {
+  //     this.authenticated = authState.authenticated;
+  //   });
 
-    return { auth, authenticated };
-  },
-  methods: {
-    login, logout
+  //   return { auth, authenticated };
+  // },
+  // methods: {
+  //   login, logout
+  // },
+  components: {
+    SiteNavigation
   }
 };
 
