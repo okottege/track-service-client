@@ -5,6 +5,7 @@ import Home from './views/Home.vue';
 import NotFound from './views/NotFound.vue';
 import Callback from './views/Callback.vue';
 import HealthCheck from './views/HealthCheck';
+import EmployeeDetails from './views/Employee';
 
 Vue.use(Router);
 
@@ -27,6 +28,7 @@ export default new Router({
     },
     { path: '/callback', name: 'callback', component: Callback },
     { path: '/health', name: 'healthCheck', component: HealthCheck },
+    { path: '/employee/create', name: 'employee-create', component: EmployeeDetails },
     { path: '*', component: NotFound }
   ]
 });

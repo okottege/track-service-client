@@ -12,6 +12,9 @@
         <b-nav-item>
           <router-link v-if="authenticated" to="/health">Health Check</router-link>
         </b-nav-item>
+        <b-nav-item>
+          <router-link v-if="authenticated" to="/employee/create">Employees</router-link>
+        </b-nav-item>
       </b-navbar-nav>
       <b-navbar-nav class="ml-auto">
         <b-nav-item right>
