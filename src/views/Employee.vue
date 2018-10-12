@@ -2,10 +2,10 @@
   <div>
     <b-form @submit="onSubmit" @reset="onReset">
       <b-form-group id="grpFirstName" label="First Name:" label-for="txtFirstName">
-        <b-form-input id="txtFirstName" type="text" v-model="form.firstName" />
+        <b-form-input id="txtFirstName" type="text" v-model="firstName" @input="updateState($event, 'firstName')" />
       </b-form-group>
       <b-form-group id="grpLastName" label="Last Name:" label-for="txtLastName">
-        <b-form-input id="txtLastName" type="text" v-model="form.lastName" />
+        <b-form-input id="txtLastName" type="text" v-model="lastName" @input="updateState($event, 'lastName')" />
       </b-form-group>
 
       <b-button type="submit" variant="primary">Submit</b-button>
@@ -16,37 +16,30 @@
 
 <script>
 
-const getEmptyForm = () => ({
-  firstName: '',
-  lastName: '',
-  dateOfBirth: undefined,
-  startDate: undefined
-});
+import { mapState } from 'vuex';
 
 export default {
 
-  data () {
-    return {
-      form: {
-        ...getEmptyForm()
-      }
-    };
+  computed: {
+    ...mapState('employeeCreate', [
+      'firstName',
+      'lastName',
+      'dateOfBirth',
+      'startDate'
+    ])
   },
   methods: {
-    getEmptyForm () {
-      return {
-        firstName: '',
-        lastName: '',
-        dateOfBirth: undefined,
-        startDate: undefined
-      };
+    updateState (data, fieldName) {
+      console.log(`data: ${data}, field: ${fieldName}`);
+      this.$store.dispatch('employeeCreate/updateState', { fieldName, value: data });
     },
     onSubmit (e) {
       e.preventDefault();
+      this.$store.dispatch('employeeCreate/submitEmployee');
     },
     onReset (e) {
       e.preventDefault();
-      this.form = getEmptyForm();
+      this.$store.dispatch('employeeCreate/resetEmployee');
     }
   }
 };
