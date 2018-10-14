@@ -53,7 +53,7 @@ const mutations = {
     state.submitted = true;
   },
   FIELD_VALIDATION_ERROR (state, err) {
-    const errForFldInState = state.errors.find(e => e.fieldName === err.fieldName);
+    const errForFldInState = state.errors.find(e => e.field === err.fieldName);
     if (err.error) {
       if (errForFldInState) {
         state.errors = state.errors.map(e => e !== errForFldInState ? e : err);

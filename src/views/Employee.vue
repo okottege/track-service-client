@@ -2,7 +2,7 @@
   <div>
     <div>
       <b-alert v-if="hasError" variant="danger" show>
-        There are few errors, please see below.
+        There are some invalid input provided, please correct the errors prior to submitting.
       </b-alert>
     </div>
     <b-form @submit="onSubmit" @reset="onReset">
@@ -11,15 +11,18 @@
           id="txtFirstName"
           type="text"
           v-model="form.firstName"
-          :state="firstNameIsOk"
+          :state="firstNameValid"
           @input="updateState($event, 'firstName')" />
+        <div v-if="firstNameError">
+          <span class="error-message">{{firstNameError.error}}</span>
+        </div>
       </b-form-group>
       <b-form-group id="grpLastName" label="Last Name:" label-for="txtLastName">
         <b-form-input
           id="txtLastName"
           type="text"
           v-model="form.lastName"
-          :state="lastNameIsOk"
+          :state="lastNameValid"
           @input="updateState($event, 'lastName')" />
       </b-form-group>
 
@@ -28,12 +31,12 @@
           id="txtEmail"
           type="email"
           v-model="form.email"
-          :state="emailIsOk"
+          :state="emailValid"
           @input="updateState($event, 'email')" />
       </b-form-group>
 
-      <b-button type="submit" variant="primary">Submit</b-button>
-      <b-button type="reset" variant="danger">Reset</b-button>
+      <b-button type="submit" variant="primary" v-bind:disabled="hasError">Submit</b-button>
+      <b-button type="reset" variant="danger" class="reset-button">Reset</b-button>
     </b-form>
   </div>
 </template>
@@ -54,13 +57,13 @@ export default {
       'lastNameError',
       'emailError'
     ]),
-    firstNameIsOk () {
+    firstNameValid () {
       return this.firstNameError === undefined ? null : false;
     },
-    lastNameIsOk () {
+    lastNameValid () {
       return this.lastNameError === undefined ? null : false;
     },
-    emailIsOk () {
+    emailValid () {
       return this.emailError === undefined ? null : false;
     }
   },
@@ -80,3 +83,11 @@ export default {
 };
 
 </script>
+<style scoped>
+.reset-button {
+  margin-left: 10px;
+}
+.error-message {
+  color: #dc3545;
+}
+</style>
