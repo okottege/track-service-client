@@ -24,6 +24,9 @@
           v-model="form.lastName"
           :state="lastNameValid"
           @input="updateState($event, 'lastName')" />
+        <div v-if="lastNameError">
+          <span class="error-message">{{lastNameError.error}}</span>
+        </div>
       </b-form-group>
 
       <b-form-group id="grpEmail" label="Email:" label-for="txtEmail">
@@ -33,6 +36,9 @@
           v-model="form.email"
           :state="emailValid"
           @input="updateState($event, 'email')" />
+        <div v-if="emailError">
+          <span class="error-message">{{emailError.error}}</span>
+        </div>
       </b-form-group>
 
       <b-button type="submit" variant="primary" v-bind:disabled="hasError">Submit</b-button>

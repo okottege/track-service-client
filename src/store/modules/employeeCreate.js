@@ -48,6 +48,7 @@ const mutations = {
   },
   RESET_EMPLOYEE (state) {
     state.form = { ...getInitialFormState() };
+    state.errors = [];
   },
   SUBMIT_EMPLOYEE (state) {
     state.submitted = true;

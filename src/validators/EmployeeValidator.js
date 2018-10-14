@@ -19,7 +19,8 @@ const getEmailValidation = email => {
   const emailRequiredError = getRequiredFieldValidation(email, 'Email is required.');
 
   if (!emailRequiredError) {
-    var regex = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    // eslint-disable-next-line
+    var regex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
     return regex.test(email.toLowerCase()) ? '' : 'Invalid email address.';
   }
 
