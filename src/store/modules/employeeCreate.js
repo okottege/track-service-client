@@ -1,4 +1,4 @@
-import { validate } from '../../validators/EmployeeValidator';
+import { validateForm } from '../../validators/EmployeeValidator';
 
 const getInitialFormState = () => (
   {
@@ -30,12 +30,14 @@ const getters = {
 const actions = {
   updateState ({ commit }, data) {
     commit('SET_DATA', data);
-
-    var error = validate(data.fieldName, data.value);
-    commit('FIELD_VALIDATION_ERROR', { field: data.fieldName, error });
   },
-  submitEmployee ({ commit }) {
-    commit('SUBMIT_EMPLOYEE');
+  submitEmployee ({ commit, state }) {
+    const errors = validateForm(state.form);
+    commit('SET_VALIDATION_ERRORS', errors);
+
+    if (errors.length === 0) {
+      commit('SUBMIT_EMPLOYEE');
+    }
   },
   resetEmployee ({ commit }) {
     commit('RESET_EMPLOYEE');
@@ -64,6 +66,9 @@ const mutations = {
     } else if (errForFldInState) {
       state.errors = state.errors.filter(e => e !== errForFldInState);
     }
+  },
+  SET_VALIDATION_ERRORS (state, errors) {
+    state.errors = errors;
   }
 };
 

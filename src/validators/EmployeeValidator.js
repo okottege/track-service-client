@@ -7,6 +7,16 @@ const validate = (field, value) => {
     case 'email':
       return getEmailValidation(value);
   }
+  return '';
+};
+
+const validateForm = form => {
+  const fieldsToValidate = ['firstName', 'lastName', 'email'];
+  const errors = fieldsToValidate
+    .map(field => ({ field, error: validate(field, form[field]) }))
+    .filter(e => e.error !== '');
+
+  return errors;
 };
 
 const getFirstNameValidation = firstName =>
@@ -35,4 +45,4 @@ const getRequiredFieldValidation = (field, errorMsg) => {
   return '';
 };
 
-export { validate };
+export { validate, validateForm };

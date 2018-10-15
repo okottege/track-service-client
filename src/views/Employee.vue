@@ -2,7 +2,7 @@
   <div>
     <div>
       <b-alert v-if="hasError" variant="danger" show>
-        There are some invalid input provided, please correct the errors prior to submitting.
+        There seems to be some information mission or incorrect.  Please check the fields below.
       </b-alert>
     </div>
     <b-form @submit="onSubmit" @reset="onReset">
@@ -41,7 +41,7 @@
         </div>
       </b-form-group>
 
-      <b-button type="submit" variant="primary" v-bind:disabled="hasError">Submit</b-button>
+      <b-button type="submit" variant="primary">Submit</b-button>
       <b-button type="reset" variant="danger" class="reset-button">Reset</b-button>
     </b-form>
   </div>
@@ -95,5 +95,7 @@ export default {
 }
 .error-message {
   color: #dc3545;
+  padding-top: 10px;
+  font-size: 0.85rem;
 }
 </style>
