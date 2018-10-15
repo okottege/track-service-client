@@ -1,9 +1,11 @@
 <template>
   <div id="app">
-    <site-navigation :login="login" :logout="logout" :authenticated="authenticated" />
-    <div class="container">
-      <router-view :auth="auth" :authenticated="authenticated" />
-    </div>
+    <v-app>
+      <site-navigation :login="login" :logout="logout" :authenticated="authenticated" />
+      <div class="container">
+        <router-view :auth="auth" :authenticated="authenticated" />
+      </div>
+    </v-app>
   </div>
 </template>
 
