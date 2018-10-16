@@ -42,62 +42,12 @@
       </b-form-group>
 
       <b-form-group id="grpDateOfBirth">
-        <v-layout row wrap>
-          <v-flex xs12 sm6 md4>
-            <v-menu
-              ref="dateOfBirthMenu"
-              :close-on-content-click="false"
-              v-model="dateOfBirthMenu"
-              :nudge-right="40"
-              :return-value.sync="form.dateOfBirth"
-              lazy
-              transition="scale-transition"
-              offset-y
-              full-width
-              min-width="290px"
-            >
-              <v-text-field
-                slot="activator"
-                v-model="dateOfBirthFormatted"
-                label="Select Date of birth"
-                prepend-icon="event"
-                readonly
-              ></v-text-field>
-              <v-date-picker v-model="form.dateOfBirth" @input="onDateOfBirthSelected" no-title scrollable>
-              </v-date-picker>
-            </v-menu>
-          </v-flex>
-        </v-layout>
+        <date-picker label="Select Date of birth" :onDateSelected="onDateOfBirthSelected" />
       </b-form-group>
 
-      <div>
-        <v-layout row wrap>
-          <v-flex xs12 sm6 md4>
-            <v-menu
-              ref="startDateMenu"
-              :close-on-content-click="false"
-              v-model="startDateMenu"
-              :nudge-right="40"
-              :return-value.sync="form.startDate"
-              lazy
-              transition="scale-transition"
-              offset-y
-              full-width
-              min-width="290px"
-            >
-              <v-text-field
-                slot="activator"
-                v-model="startDateFormatted"
-                label="Select Start date"
-                prepend-icon="event"
-                readonly
-              ></v-text-field>
-              <v-date-picker v-model="form.startDate" @input="onStartDateSelected" no-title scrollable>
-              </v-date-picker>
-            </v-menu>
-          </v-flex>
-        </v-layout>
-      </div>
+      <b-form-group id="grpStartDate">
+        <date-picker label="Select Start date" :onDateSelected="onStartDateSelected" />
+      </b-form-group>
       <b-button type="submit" variant="primary">Submit</b-button>
       <b-button type="reset" variant="danger" class="reset-button">Reset</b-button>
     </b-form>
@@ -107,6 +57,7 @@
 <script>
 
 import { mapState, mapGetters } from 'vuex';
+import DatePicker from '../components/DatePicker';
 
 export default {
   data () {
@@ -134,12 +85,6 @@ export default {
     },
     emailValid () {
       return this.emailError === undefined ? null : false;
-    },
-    dateOfBirthFormatted () {
-      return this.formatDate(this.form.dateOfBirth);
-    },
-    startDateFormatted () {
-      return this.formatDate(this.form.startDate);
     }
   },
   methods: {
@@ -155,27 +100,14 @@ export default {
       this.$store.dispatch('employeeCreate/resetEmployee');
     },
     onDateOfBirthSelected (dateOfBirth) {
-      this.dateOfBirthMenu = false;
-      this.$refs.dateOfBirthMenu.save(dateOfBirth);
       this.updateState(dateOfBirth, 'dateOfBirth');
     },
     onStartDateSelected (startDate) {
-      this.startDateMenu = false;
-      this.$refs.startDateMenu.save(startDate);
       this.updateState(startDate, 'startDate');
-    },
-    formatDate (date) {
-      if (!date) return null;
-
-      const [year, month, day] = date.split('-');
-      return `${day}/${month}/${year}`;
-    },
-    parseDate (date) {
-      if (!date) return null;
-
-      const [month, day, year] = date.split('/');
-      return `${year}-${month.padStart(2, '0')}-${day.padStart(2, '0')}`;
     }
+  },
+  components: {
+    DatePicker
   }
 };
 
