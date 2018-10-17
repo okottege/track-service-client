@@ -7,7 +7,7 @@
           :close-on-content-click="false"
           v-model="dateMenu"
           :nudge-right="40"
-          :return-value.sync="date"
+          :return-value.sync="value"
           lazy
           transition="scale-transition"
           offset-y
@@ -21,7 +21,7 @@
             prepend-icon="event"
             readonly
           ></v-text-field>
-          <v-date-picker :v-model="date" @input="onControlDateChanged" no-title scrollable>
+          <v-date-picker :v-model="value" @input="onControlDateChanged" no-title scrollable>
           </v-date-picker>
         </v-menu>
       </v-flex>
@@ -33,26 +33,25 @@
 export default {
   name: 'date-picker',
   props: {
-    onDateSelected: Function,
     label: String,
-    errorMessage: String
+    errorMessage: String,
+    value: String
   },
   data () {
     return {
-      date: null,
       dateMenu: false
     };
   },
   computed: {
     dateFormatted () {
-      return this.formatDate(this.date);
+      return this.formatDate(this.value);
     }
   },
   methods: {
     onControlDateChanged (date) {
       this.dateMenu = false;
       this.$refs.dateMenu.save(date);
-      this.onDateSelected(date);
+      this.$emit('input', date);
     },
     formatDate (date) {
       if (!date) return null;

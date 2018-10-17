@@ -42,11 +42,11 @@
       </b-form-group>
 
       <b-form-group id="grpDateOfBirth">
-        <date-picker label="Select Date of birth" :onDateSelected="onDateOfBirthSelected" />
+        <date-picker label="Select Date of birth" v-model="form.dateOfBirth" @input="updateState($event, 'dateOfBirth')" />
       </b-form-group>
 
       <b-form-group id="grpStartDate">
-        <date-picker label="Select Start date" :onDateSelected="onStartDateSelected" />
+        <date-picker label="Select Start date" v-model="form.startDate" @input="updateState($event, 'startDate')" />
       </b-form-group>
       <b-button type="submit" variant="primary">Submit</b-button>
       <b-button type="reset" variant="danger" class="reset-button">Reset</b-button>
@@ -98,12 +98,6 @@ export default {
     onReset (e) {
       e.preventDefault();
       this.$store.dispatch('employeeCreate/resetEmployee');
-    },
-    onDateOfBirthSelected (dateOfBirth) {
-      this.updateState(dateOfBirth, 'dateOfBirth');
-    },
-    onStartDateSelected (startDate) {
-      this.updateState(startDate, 'startDate');
     }
   },
   components: {
