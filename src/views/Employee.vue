@@ -6,7 +6,7 @@
       </b-alert>
     </div>
     <b-form @submit="onSubmit" @reset="onReset">
-      <b-form-group id="grpFirstName" label="First Name:" label-for="txtFirstName">
+      <!-- <b-form-group id="grpFirstName" label="First Name:" label-for="txtFirstName">
         <b-form-input
           id="txtFirstName"
           type="text"
@@ -16,7 +16,14 @@
         <div v-if="firstNameError">
           <span class="error-message">{{firstNameError.error}}</span>
         </div>
-      </b-form-group>
+      </b-form-group> -->
+      <form-text-box
+          id="txtFirstName"
+          label="First Name:"
+          :errorMessage="firstNameError ? firstNameError.error : null"
+          v-model="form.firstName"
+          :state="firstNameError === undefined ? null : false"
+          @input="updateState($event, 'firstName')" />
       <b-form-group id="grpLastName" label="Last Name:" label-for="txtLastName">
         <b-form-input
           id="txtLastName"
@@ -57,7 +64,8 @@
 <script>
 
 import { mapState, mapGetters } from 'vuex';
-import DatePicker from '../components/DatePicker';
+import DatePicker from '../components/controls/DatePicker';
+import FormTextBox from '../components/controls/FormTextBox';
 
 export default {
   data () {
@@ -101,7 +109,8 @@ export default {
     }
   },
   components: {
-    DatePicker
+    DatePicker,
+    FormTextBox
   }
 };
 
