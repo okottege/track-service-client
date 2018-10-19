@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <b-form-group :id="`grp${id}`">
     <v-layout row wrap>
       <v-flex xs12 sm6 md4>
         <v-menu
@@ -26,7 +26,7 @@
         </v-menu>
       </v-flex>
     </v-layout>
-  </div>
+  </b-form-group>
 </template>
 
 <script>
@@ -35,7 +35,8 @@ export default {
   props: {
     label: String,
     errorMessage: String,
-    value: String
+    value: String,
+    id: String
   },
   data () {
     return {

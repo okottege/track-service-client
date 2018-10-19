@@ -10,7 +10,10 @@ const getInitialFormState = () => (
   }
 );
 
-const getError = (errors, field) => errors.find(e => e.field === field);
+const getError = (errors, field) => {
+  var err = errors.find(e => e.field === field);
+  return err ? err.error : undefined;
+};
 
 const state = {
   form: {

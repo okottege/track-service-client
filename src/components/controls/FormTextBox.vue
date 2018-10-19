@@ -2,8 +2,8 @@
   <b-form-group :id="`grp${id}`" :label="label" :label-for="id">
     <b-form-input
       :id="id"
-      type="text"
-      v-model="value"
+      :type="inputType"
+      :value="value"
       :state="state"
       @input="onInputChanged" />
     <div v-if="state === false">
@@ -19,7 +19,11 @@ export default {
     label: String,
     errorMessage: String,
     value: String,
-    state: Boolean
+    state: Boolean,
+    inputType: {
+      type: String,
+      default: 'text'
+    }
   },
   methods: {
     onInputChanged (text) {
