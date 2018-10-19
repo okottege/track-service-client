@@ -17,4 +17,13 @@ export default class EmployeeService {
       });
     return result;
   }
+  async getEmployees () {
+    const employees = await axios(
+      {
+        method: 'get',
+        url: `${siteConfig.apiBaseUrl}/api/employee`,
+        headers: { Authorization: `Bearer ${this.accessToken}` }
+      });
+    return employees;
+  }
 };

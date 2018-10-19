@@ -7,6 +7,7 @@ import Callback from './views/Callback.vue';
 import HealthCheck from './views/HealthCheck';
 import EmployeeDetails from './views/Employee';
 import DatePickerDemo from './views/DatePickerDemo';
+import EmployeeList from './views/EmployeeList';
 
 Vue.use(Router);
 
@@ -30,6 +31,7 @@ export default new Router({
     { path: '/callback', name: 'callback', component: Callback },
     { path: '/health', name: 'healthCheck', component: HealthCheck },
     { path: '/employee/create', name: 'employee-create', component: EmployeeDetails },
+    { path: '/employee/list', name: 'employee-list', component: EmployeeList },
     { path: '/date-picker-demo', name: 'datepicker', component: DatePickerDemo },
     { path: '*', component: NotFound }
   ]

@@ -3,6 +3,7 @@ import EmployeeService from '../../services/EmployeeService';
 
 const getInitialFormState = () => (
   {
+    employeeId: undefined,
     email: '',
     firstName: '',
     lastName: '',
@@ -56,6 +57,7 @@ const actions = {
     if (errors.length === 0) {
       const createdEmployee = await submitNewEmployee();
       commit('SUBMIT_EMPLOYEE', createdEmployee);
+      commit('RESET_EMPLOYEE');
     }
   },
   resetEmployee ({ commit }) {
@@ -73,6 +75,7 @@ const mutations = {
   },
   SUBMIT_EMPLOYEE (state, employee) {
     state.submitted = true;
+    state.employeeId = employee.Id;
   },
   FIELD_VALIDATION_ERROR (state, err) {
     const errForFldInState = state.errors.find(e => e.field === err.fieldName);
