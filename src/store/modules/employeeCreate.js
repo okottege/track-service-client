@@ -1,4 +1,5 @@
 import { validateForm } from '../../validators/EmployeeValidator';
+import EmployeeService from '../../services/EmployeeService';
 
 const getInitialFormState = () => (
   {
@@ -13,6 +14,20 @@ const getInitialFormState = () => (
 const getError = (errors, field) => {
   var err = errors.find(e => e.field === field);
   return err ? err.error : undefined;
+};
+
+const submitNewEmployee = async () => {
+  const employeeService = new EmployeeService(localStorage.getItem('access_token'));
+  const createdEmployee = await employeeService.createNewEmployee(
+    {
+      Email: state.form.email,
+      FirstName: state.form.firstName,
+      LastName: state.form.lastName,
+      DateOfBirth: state.form.dateOfBirth,
+      StartDate: state.form.startDate
+    }
+  );
+  return createdEmployee;
 };
 
 const state = {
@@ -34,12 +49,13 @@ const actions = {
   updateState ({ commit }, data) {
     commit('SET_DATA', data);
   },
-  submitEmployee ({ commit, state }) {
+  async submitEmployee ({ commit, state }) {
     const errors = validateForm(state.form);
     commit('SET_VALIDATION_ERRORS', errors);
 
     if (errors.length === 0) {
-      commit('SUBMIT_EMPLOYEE');
+      const createdEmployee = await submitNewEmployee();
+      commit('SUBMIT_EMPLOYEE', createdEmployee);
     }
   },
   resetEmployee ({ commit }) {
@@ -55,7 +71,7 @@ const mutations = {
     state.form = { ...getInitialFormState() };
     state.errors = [];
   },
-  SUBMIT_EMPLOYEE (state) {
+  SUBMIT_EMPLOYEE (state, employee) {
     state.submitted = true;
   },
   FIELD_VALIDATION_ERROR (state, err) {

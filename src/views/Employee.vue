@@ -4,6 +4,9 @@
       <b-alert v-if="hasError" variant="danger" show>
         There seems to be some information mission or incorrect.  Please check the fields below.
       </b-alert>
+      <b-alert v-if="submitted" variant="success" show>
+        Successfully created the employee {{ form.firstName }}, {{ form.lastName }}.
+      </b-alert>
     </div>
     <b-form @submit="onSubmit" @reset="onReset">
       <form-text-box
