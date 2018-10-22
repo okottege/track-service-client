@@ -1,7 +1,6 @@
 import auth0 from 'auth0-js';
 import { AUTH_CONFIG } from '../auth/auth0-config';
 import EventEmitter from 'eventemitter3';
-import router from '../router';
 
 export default class AuthenticationService {
   authenticated = this.isAuthenticated();
@@ -31,9 +30,7 @@ export default class AuthenticationService {
     this.auth0.parseHash((err, authResult) => {
       if (authResult && authResult.accessToken && authResult.idToken) {
         this.setSession(authResult);
-        router.replace('/');
       } else if (err) {
-        router.replace('/');
         console.log('Error handling authentication ', err);
       }
     });
@@ -54,7 +51,6 @@ export default class AuthenticationService {
     localStorage.removeItem('expires_at');
     this.userProfile = null;
     this.authNotifier.emit('authChange', false);
-    router.replace('/');
   }
 
   isAuthenticated () {

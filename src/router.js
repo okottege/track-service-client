@@ -8,10 +8,12 @@ import HealthCheck from './views/HealthCheck';
 import EmployeeDetails from './views/Employee';
 import DatePickerDemo from './views/DatePickerDemo';
 import EmployeeList from './views/EmployeeList';
+import AuthenticationService from './services/AuthenticationService';
 
 Vue.use(Router);
+const authService = new AuthenticationService();
 
-export default new Router({
+const router = new Router({
   mode: 'history',
   base: process.env.BASE_URL,
   routes: [
@@ -36,3 +38,15 @@ export default new Router({
     { path: '*', component: NotFound }
   ]
 });
+
+router.beforeEach((to, from, next) => {
+  if (['home', 'about', 'callback'].includes(to.name)) {
+    next();
+  } else if (authService.isAuthenticated()) {
+    next();
+  } else {
+    authService.login();
+  }
+});
+
+export default router;

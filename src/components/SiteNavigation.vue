@@ -35,9 +35,21 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
 
 export default {
   name: 'site-navigation',
-  props: ['login', 'logout', 'authenticated']
+  computed: {
+    ...mapGetters('authentication', ['authenticated'])
+  },
+  methods: {
+    login () {
+      this.$store.dispatch('authentication/goToLoginPage');
+    },
+    logout () {
+      this.$store.dispatch('authentication/logout')
+        .then(() => this.$router.replace('/'));
+    }
+  }
 };
 </script>

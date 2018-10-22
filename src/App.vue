@@ -1,9 +1,9 @@
 <template>
   <div id="app">
     <v-app>
-      <site-navigation :login="login" :logout="logout" :authenticated="authenticated" />
+      <site-navigation />
       <div class="container">
-        <router-view :auth="auth" :authenticated="authenticated" />
+        <router-view />
       </div>
     </v-app>
   </div>
@@ -11,21 +11,11 @@
 
 <script>
 import SiteNavigation from '@/components/SiteNavigation';
-import AuthService from './services/AuthenticationService';
-const auth = new AuthService();
-const { login, logout, authenticated, authNotifier } = auth;
 
 export default {
   name: 'app',
   data () {
-    authNotifier.on('authChange', authState => {
-      this.authenticated = authState.authenticated;
-    });
-
-    return { auth, authenticated };
-  },
-  methods: {
-    login, logout
+    return {};
   },
   components: {
     SiteNavigation

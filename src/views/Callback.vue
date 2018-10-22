@@ -7,9 +7,9 @@
 <script>
 export default {
   name: 'callback',
-  props: ['auth'],
   data () {
-    this.auth.handleAuthentication();
+    this.$store.dispatch('authentication/handleSuccessfulLogin')
+      .then(() => this.$router.replace('/'));
     return {};
   }
 };
