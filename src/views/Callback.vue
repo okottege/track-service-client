@@ -9,20 +9,9 @@
 export default {
   name: 'callback',
   async created () {
-    // await this.$store.dispatch('authentication/handleLogin')
-    //   .then(() => this.$router.replace('/'))
-    //   .catch((err) => {
-    //     console.log('Error loging in: ', err);
-    //     this.$router.replace('/login-error');
-    //   });
-    try {
-      await this.$store.dispatch('authentication/handleLogin');
-      console.log('Got a result from action');
-      this.$router.replace('/');
-    } catch (e) {
-      console.log('Error loging in: ', e);
-      this.$router.replace('/login-error');
-    }
+    await this.$store.dispatch('authentication/handleLogin')
+      .then(() => this.$router.replace('/'))
+      .catch(() => this.$router.replace('/login-error'));
   }
 };
 </script>

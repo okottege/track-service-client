@@ -15,35 +15,35 @@ import AuthenticationService from './services/AuthenticationService';
 Vue.use(Router);
 const authService = new AuthenticationService();
 
+const routes = [
+  { path: '/', name: 'home', component: Home },
+  {
+    path: '/about',
+    name: 'about',
+    // route level code-splitting
+    // this generates a separate chunk (about.[hash].js) for this route
+    // which is lazy-loaded when the route is visited.
+    component: () => import(/* webpackChunkName: "about" */ './views/About.vue')
+  },
+  { path: '/callback', name: 'callback', component: Callback },
+  { path: '/health', name: 'healthCheck', component: HealthCheck, authRequired: true },
+  { path: '/employee/create', name: 'employee-create', component: EmployeeDetails, authRequired: true },
+  { path: '/employee/list', name: 'employee-list', component: EmployeeList, authRequired: true },
+  { path: '/date-picker-demo', name: 'datepicker', component: DatePickerDemo },
+  { path: '/login-error', name: 'login-error', component: LoginError },
+  { path: '*', name: 'not-found', component: NotFound }
+];
+
 const router = new Router({
   mode: 'history',
   base: process.env.BASE_URL,
-  routes: [
-    {
-      path: '/',
-      name: 'home',
-      component: Home
-    },
-    {
-      path: '/about',
-      name: 'about',
-      // route level code-splitting
-      // this generates a separate chunk (about.[hash].js) for this route
-      // which is lazy-loaded when the route is visited.
-      component: () => import(/* webpackChunkName: "about" */ './views/About.vue')
-    },
-    { path: '/callback', name: 'callback', component: Callback },
-    { path: '/health', name: 'healthCheck', component: HealthCheck },
-    { path: '/employee/create', name: 'employee-create', component: EmployeeDetails },
-    { path: '/employee/list', name: 'employee-list', component: EmployeeList },
-    { path: '/date-picker-demo', name: 'datepicker', component: DatePickerDemo },
-    { path: '/login-error', name: 'login-error', component: LoginError },
-    { path: '*', component: NotFound }
-  ]
+  routes
 });
 
 router.beforeEach((to, from, next) => {
-  if (['home', 'about', 'callback', 'login-error'].includes(to.name)) {
+  const noAuthRoutes = routes.filter(r => !r.authRequired)
+    .map(r => r.name);
+  if (noAuthRoutes.includes(to.name)) {
     next();
   } else if (authService.isAuthenticated()) {
     next();

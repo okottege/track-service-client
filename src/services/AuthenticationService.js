@@ -30,12 +30,12 @@ export default class AuthenticationService {
     return new Promise((resolve, reject) => {
       this.auth0.parseHash((err, authResult) => {
         if (authResult && authResult.accessToken && authResult.idToken) {
-          console.log('Login handled successfully.');
           this.setSession(authResult);
           resolve(authResult);
         } else if (err) {
-          console.log('Error handling authentication ', err);
           reject(err);
+        } else {
+          reject(new Error('There was an issue handling the login'));
         }
       });
     });
