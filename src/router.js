@@ -8,6 +8,8 @@ import HealthCheck from './views/HealthCheck';
 import EmployeeDetails from './views/Employee';
 import DatePickerDemo from './views/DatePickerDemo';
 import EmployeeList from './views/EmployeeList';
+import LoginError from './views/LoginError';
+
 import AuthenticationService from './services/AuthenticationService';
 
 Vue.use(Router);
@@ -35,12 +37,13 @@ const router = new Router({
     { path: '/employee/create', name: 'employee-create', component: EmployeeDetails },
     { path: '/employee/list', name: 'employee-list', component: EmployeeList },
     { path: '/date-picker-demo', name: 'datepicker', component: DatePickerDemo },
+    { path: '/login-error', name: 'login-error', component: LoginError },
     { path: '*', component: NotFound }
   ]
 });
 
 router.beforeEach((to, from, next) => {
-  if (['home', 'about', 'callback'].includes(to.name)) {
+  if (['home', 'about', 'callback', 'login-error'].includes(to.name)) {
     next();
   } else if (authService.isAuthenticated()) {
     next();

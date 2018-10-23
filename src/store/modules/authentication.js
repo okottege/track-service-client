@@ -13,9 +13,19 @@ const actions = {
   goToLoginPage () {
     login();
   },
-  handleSuccessfulLogin ({ commit }) {
-    auth.handleAuthentication();
-    commit('SUCCESSFUL_LOGIN');
+  handleLogin ({ commit }) {
+    return new Promise((resolve, reject) => {
+      auth.handleAuthentication()
+        .then(() => {
+          console.log('Login was successful.');
+          commit('SUCCESSFUL_LOGIN');
+          resolve();
+        })
+        .catch((err) => {
+          console.log('Error was: ', err);
+          reject(err);
+        });
+    });
   },
   logout ({ commit }) {
     logout();

@@ -2,7 +2,7 @@
   <div>
     <div>
       <b-alert v-if="hasError" variant="danger" show>
-        There seems to be some information mission or incorrect.  Please check the fields below.
+        There seems to be some information missing or incorrect.  Please check the fields below.
       </b-alert>
       <b-alert v-if="submitted" variant="success" show>
         Successfully created the employee.
