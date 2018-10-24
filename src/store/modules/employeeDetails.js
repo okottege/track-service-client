@@ -47,6 +47,9 @@ const getters = {
 };
 
 const actions = {
+  initialiseState ({ commit }, employee) {
+    commit('SET_EMPLOYEE_DETAILS', employee);
+  },
   updateState ({ commit }, data) {
     commit('SET_DATA', data);
   },
@@ -66,6 +69,9 @@ const actions = {
 };
 
 const mutations = {
+  SET_EMPLOYEE_DETAILS (state, employee) {
+    state.form = { ...employee };
+  },
   SET_DATA (state, data) {
     state.form[data.fieldName] = data.value;
   },

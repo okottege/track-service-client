@@ -96,7 +96,7 @@ export default {
     }
   },
   created () {
-    console.log('Employee is: ', this.employee);
+    this.$store.dispatch('employeeDetails/initialiseState', this.employee);
   },
   components: {
     DatePicker, FormTextBox

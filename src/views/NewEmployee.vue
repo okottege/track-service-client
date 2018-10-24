@@ -40,68 +40,20 @@
       <b-button type="submit" variant="primary">Submit</b-button>
       <b-button type="reset" variant="danger" class="reset-button">Reset</b-button>
     </b-form> -->
-    <employee :employee="{firstName: 'Oshan', lastName: 'Kottege'}" />
+    <employee
+      :employee="{firstName: 'Oshan', lastName: 'Kottege'}"
+      submitButtonText="Create New Employee" />
   </div>
 </template>
 
 <script>
 
-import { mapState, mapGetters } from 'vuex';
-import DatePicker from '../components/controls/DatePicker';
-import FormTextBox from '../components/controls/FormTextBox';
 import Employee from '../components/Employee';
 
 export default {
-  data () {
-    return {
-      dateOfBirthMenu: false,
-      startDateMenu: false
-    };
-  },
-  computed: {
-    ...mapState('employeeDetails', [
-      'form',
-      'submitted'
-    ]),
-    ...mapGetters('employeeDetails', [
-      'hasError',
-      'firstNameError',
-      'lastNameError',
-      'emailError'
-    ]),
-    firstNameValid () {
-      return this.firstNameError === undefined ? null : false;
-    },
-    lastNameValid () {
-      return this.lastNameError === undefined ? null : false;
-    },
-    emailValid () {
-      return this.emailError === undefined ? null : false;
-    }
-  },
-  methods: {
-    updateState (data, fieldName) {
-      this.$store.dispatch('employeeDetails/updateState', { fieldName, value: data });
-    },
-    onSubmit (e) {
-      e.preventDefault();
-      this.$store.dispatch('employeeDetails/submitEmployee');
-    },
-    onReset (e) {
-      e.preventDefault();
-      this.$store.dispatch('employeeDetails/resetEmployee');
-    }
-  },
   components: {
-    DatePicker,
-    FormTextBox,
     Employee
   }
 };
 
 </script>
-<style scoped>
-.reset-button {
-  margin-left: 10px;
-}
-</style>
