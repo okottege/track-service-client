@@ -8,7 +8,7 @@
         Successfully created the employee.
       </b-alert>
     </div>
-    <b-form @submit="onSubmit" @reset="onReset">
+    <!-- <b-form @submit="onSubmit" @reset="onReset">
       <form-text-box
         id="txtFirstName"
         label="First Name:"
@@ -39,7 +39,7 @@
 
       <b-button type="submit" variant="primary">Submit</b-button>
       <b-button type="reset" variant="danger" class="reset-button">Reset</b-button>
-    </b-form>
+    </b-form> -->
     <employee :employee="{firstName: 'Oshan', lastName: 'Kottege'}" />
   </div>
 </template>

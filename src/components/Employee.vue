@@ -1,5 +1,10 @@
 <template>
   <div>
+    <div>
+      <b-alert v-if="hasError" variant="danger" show>
+        There seems to be some information missing or incorrect.  Please check the fields below.
+      </b-alert>
+    </div>
     <b-form @submit="onSubmit" @reset="onReset">
       <form-text-box
         id="txtFirstName"
@@ -36,7 +41,7 @@
 </template>
 <script>
 
-// import { mapState, mapGetters } from 'vuex';
+import { mapState, mapGetters } from 'vuex';
 import DatePicker from './controls/DatePicker';
 import FormTextBox from './controls/FormTextBox';
 
@@ -56,6 +61,40 @@ export default {
       default: 'Reset'
     }
   },
+  computed: {
+    ...mapState('employeeDetails', [
+      'form',
+      'submitted'
+    ]),
+    ...mapGetters('employeeDetails', [
+      'hasError',
+      'firstNameError',
+      'lastNameError',
+      'emailError'
+    ]),
+    firstNameValid () {
+      return this.firstNameError === undefined ? null : false;
+    },
+    lastNameValid () {
+      return this.lastNameError === undefined ? null : false;
+    },
+    emailValid () {
+      return this.emailError === undefined ? null : false;
+    }
+  },
+  methods: {
+    updateState (data, fieldName) {
+      this.$store.dispatch('employeeDetails/updateState', { fieldName, value: data });
+    },
+    onSubmit (e) {
+      e.preventDefault();
+      this.$store.dispatch('employeeDetails/submitEmployee');
+    },
+    onReset (e) {
+      e.preventDefault();
+      this.$store.dispatch('employeeDetails/resetEmployee');
+    }
+  },
   created () {
     console.log('Employee is: ', this.employee);
   },
@@ -63,5 +102,10 @@ export default {
     DatePicker, FormTextBox
   }
 };
-
 </script>
+
+<style scoped>
+.reset-button {
+  margin-left: 10px;
+}
+</style>
