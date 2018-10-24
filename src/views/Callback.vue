@@ -8,8 +8,8 @@
 
 export default {
   name: 'callback',
-  async created () {
-    await this.$store.dispatch('authentication/handleLogin')
+  created () {
+    this.$store.dispatch('authentication/handleLogin')
       .then(() => this.$router.replace('/'))
       .catch(() => this.$router.replace('/login-error'));
   }

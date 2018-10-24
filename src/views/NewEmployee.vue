@@ -40,6 +40,7 @@
       <b-button type="submit" variant="primary">Submit</b-button>
       <b-button type="reset" variant="danger" class="reset-button">Reset</b-button>
     </b-form>
+    <employee :employee="{firstName: 'Oshan', lastName: 'Kottege'}" />
   </div>
 </template>
 
@@ -48,6 +49,7 @@
 import { mapState, mapGetters } from 'vuex';
 import DatePicker from '../components/controls/DatePicker';
 import FormTextBox from '../components/controls/FormTextBox';
+import Employee from '../components/Employee';
 
 export default {
   data () {
@@ -92,7 +94,8 @@ export default {
   },
   components: {
     DatePicker,
-    FormTextBox
+    FormTextBox,
+    Employee
   }
 };
 
