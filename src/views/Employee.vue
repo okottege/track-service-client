@@ -57,11 +57,11 @@ export default {
     };
   },
   computed: {
-    ...mapState('employeeCreate', [
+    ...mapState('employeeDetails', [
       'form',
       'submitted'
     ]),
-    ...mapGetters('employeeCreate', [
+    ...mapGetters('employeeDetails', [
       'hasError',
       'firstNameError',
       'lastNameError',
@@ -79,15 +79,15 @@ export default {
   },
   methods: {
     updateState (data, fieldName) {
-      this.$store.dispatch('employeeCreate/updateState', { fieldName, value: data });
+      this.$store.dispatch('employeeDetails/updateState', { fieldName, value: data });
     },
     onSubmit (e) {
       e.preventDefault();
-      this.$store.dispatch('employeeCreate/submitEmployee');
+      this.$store.dispatch('employeeDetails/submitEmployee');
     },
     onReset (e) {
       e.preventDefault();
-      this.$store.dispatch('employeeCreate/resetEmployee');
+      this.$store.dispatch('employeeDetails/resetEmployee');
     }
   },
   components: {
