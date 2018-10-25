@@ -65,9 +65,6 @@ const getters = {
 };
 
 const actions = {
-  initialiseState ({ commit }, employee) {
-    commit('SET_EMPLOYEE_DETAILS', employee);
-  },
   updateState ({ commit }, data) {
     commit('SET_DATA', data);
   },
@@ -84,9 +81,9 @@ const actions = {
   resetEmployee ({ commit }) {
     commit('RESET_EMPLOYEE');
   },
-  async loadEmployee ({ dispatch }, employeeId) {
+  async loadEmployee ({ commit }, employeeId) {
     const employee = await newEmployeeService().getEmployee(employeeId);
-    dispatch('initialiseState', mapEmployeeToState(employee));
+    commit('SET_EMPLOYEE_DETAILS', mapEmployeeToState(employee));
   }
 };
 
