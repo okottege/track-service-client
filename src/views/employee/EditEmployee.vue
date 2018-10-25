@@ -19,7 +19,7 @@ export default {
   },
   methods: {
     redirectToList () {
-      this.$router.push('/employee/list');
+      this.$router.push('/employees');
     }
   },
   components: {

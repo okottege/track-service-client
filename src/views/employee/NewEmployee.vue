@@ -26,7 +26,7 @@ export default {
   },
   methods: {
     redirectToEmployeeList () {
-      this.$router.push('/employee/list');
+      this.$router.push('/employees');
     },
     onFailedToSave () {
 

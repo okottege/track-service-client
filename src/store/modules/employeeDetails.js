@@ -24,8 +24,9 @@ const saveEmployeeDetails = async () => {
   const employeeService = newEmployeeService();
   const employeeToSave = mapEmployeeFromState();
   let savedEmployee;
-  if (employeeToSave.employeeId) {
-
+  if (employeeToSave.EmployeeId) {
+    await employeeService.updateEmployee(employeeToSave);
+    savedEmployee = { ...employeeToSave };
   } else {
     savedEmployee = await employeeService.createNewEmployee(employeeToSave);
   }
@@ -33,6 +34,7 @@ const saveEmployeeDetails = async () => {
 };
 
 const mapEmployeeFromState = () => ({
+  EmployeeId: state.form.employeeId,
   Email: state.form.email,
   FirstName: state.form.firstName,
   LastName: state.form.lastName,
@@ -73,8 +75,8 @@ const actions = {
     commit('SET_VALIDATION_ERRORS', errors);
 
     if (errors.length === 0) {
-      const createdEmployee = await saveEmployeeDetails();
-      commit('SUBMIT_EMPLOYEE', createdEmployee);
+      const savedEmployee = await saveEmployeeDetails();
+      commit('SUBMIT_EMPLOYEE', savedEmployee);
       commit('RESET_EMPLOYEE');
     }
   },
@@ -100,7 +102,7 @@ const mutations = {
   },
   SUBMIT_EMPLOYEE (state, employee) {
     state.submitted = true;
-    state.employeeId = employee.Id;
+    state.form.employeeId = employee.Id;
   },
   FIELD_VALIDATION_ERROR (state, err) {
     const errForFldInState = state.errors.find(e => e.field === err.fieldName);

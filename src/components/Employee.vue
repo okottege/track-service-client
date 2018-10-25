@@ -111,7 +111,6 @@ export default {
   },
   created () {
     if (this.employeeId) {
-      console.log('Loading employee by id: ', this.employeeId);
       this.$store.dispatch('employeeDetails/loadEmployee', this.employeeId);
     }
   },
