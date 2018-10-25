@@ -7,6 +7,10 @@ export default class EmployeeService {
     this.accessToken = token;
   }
 
+  getBasicHeaders () {
+    return { Authorization: `Bearer ${this.accessToken}` };
+  }
+
   async createNewEmployee (employee) {
     const result = await axios(
       {
@@ -18,12 +22,20 @@ export default class EmployeeService {
     return result;
   }
   async getEmployees () {
-    const employees = await axios(
+    const response = await axios(
       {
         method: 'get',
         url: `${siteConfig.apiBaseUrl}/api/employee`,
         headers: { Authorization: `Bearer ${this.accessToken}` }
       });
-    return employees;
+    return response.data;
+  }
+  async getEmployee (employeeId) {
+    const response = await axios({
+      method: 'get',
+      url: `${siteConfig.apiBaseUrl}/api/employee/${employeeId}`,
+      headers: this.getBasicHeaders()
+    });
+    return response.data;
   }
 };

@@ -5,9 +5,10 @@ import Home from './views/Home.vue';
 import NotFound from './views/NotFound.vue';
 import Callback from './views/Callback.vue';
 import HealthCheck from './views/HealthCheck';
-import NewEmployee from './views/NewEmployee';
+import NewEmployee from './views/employee/NewEmployee';
+import EditEmployee from './views/employee/EditEmployee';
 import DatePickerDemo from './views/DatePickerDemo';
-import EmployeeList from './views/EmployeeList';
+import EmployeeList from './views/employee/EmployeeList';
 import LoginError from './views/LoginError';
 
 import AuthenticationService from './services/AuthenticationService';
@@ -28,7 +29,8 @@ const routes = [
   { path: '/callback', name: 'callback', component: Callback },
   { path: '/health', name: 'healthCheck', component: HealthCheck, authRequired: true },
   { path: '/employee/create', name: 'employee-create', component: NewEmployee, authRequired: true },
-  { path: '/employee/list', name: 'employee-list', component: EmployeeList, authRequired: true },
+  { path: '/employee/:employeeId', name: 'employee-details', component: EditEmployee, props: true, authRequired: true },
+  { path: '/employees', name: 'employee-list', component: EmployeeList, authRequired: true },
   { path: '/date-picker-demo', name: 'datepicker', component: DatePickerDemo },
   { path: '/login-error', name: 'login-error', component: LoginError },
   { path: '*', name: 'not-found', component: NotFound }

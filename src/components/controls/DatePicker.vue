@@ -30,6 +30,8 @@
 </template>
 
 <script>
+import { formatDate } from '../../common/dates';
+
 export default {
   name: 'date-picker',
   props: {
@@ -45,7 +47,7 @@ export default {
   },
   computed: {
     dateFormatted () {
-      return this.formatDate(this.value);
+      return formatDate(this.value);
     }
   },
   methods: {
@@ -53,12 +55,6 @@ export default {
       this.dateMenu = false;
       this.$refs.dateMenu.save(date);
       this.$emit('input', date);
-    },
-    formatDate (date) {
-      if (!date) return null;
-
-      const [year, month, day] = date.split('-');
-      return `${day}/${month}/${year}`;
     },
     parseDate (date) {
       if (!date) return null;

@@ -12,7 +12,7 @@ const actions = {
   async getEmployees ({ commit }) {
     const service = new EmployeeService(localStorage.getItem('access_token'));
     const employees = await service.getEmployees();
-    commit('EMPLOYEES_LOADED', employees.data);
+    commit('EMPLOYEES_LOADED', employees);
   }
 };
 

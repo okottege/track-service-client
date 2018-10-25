@@ -13,7 +13,7 @@
           <router-link v-if="authenticated" to="/health">Health Check</router-link>
         </b-nav-item>
         <b-nav-item>
-          <router-link v-if="authenticated" to="/employee/list">Employees</router-link>
+          <router-link v-if="authenticated" to="/employees">Employees</router-link>
         </b-nav-item>
       </b-navbar-nav>
       <b-navbar-nav class="ml-auto">

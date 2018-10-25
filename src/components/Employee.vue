@@ -48,9 +48,8 @@ import FormTextBox from './controls/FormTextBox';
 export default {
   name: 'employee',
   props: {
-    employee: {
-      type: Object,
-      required: true
+    employeeId: {
+      type: String
     },
     submitButtonText: {
       type: String,
@@ -59,6 +58,14 @@ export default {
     resetButtonText: {
       type: String,
       default: 'Reset'
+    },
+    onSuccessfulSave: {
+      type: Function,
+      required: true
+    },
+    onFailedToSave: {
+      type: Function,
+      required: true
     }
   },
   computed: {
@@ -88,15 +95,25 @@ export default {
     },
     onSubmit (e) {
       e.preventDefault();
-      this.$store.dispatch('employeeDetails/submitEmployee');
+      this.$store.dispatch('employeeDetails/submitEmployee')
+        .then(this.notifySuccessfulSave)
+        .catch(this.onFailedToSave);
     },
     onReset (e) {
       e.preventDefault();
       this.$store.dispatch('employeeDetails/resetEmployee');
+    },
+    notifySuccessfulSave () {
+      if (!this.hasError) {
+        this.onSuccessfulSave();
+      }
     }
   },
   created () {
-    this.$store.dispatch('employeeDetails/initialiseState', this.employee);
+    if (this.employeeId) {
+      console.log('Loading employee by id: ', this.employeeId);
+      this.$store.dispatch('employeeDetails/loadEmployee', this.employeeId);
+    }
   },
   components: {
     DatePicker, FormTextBox

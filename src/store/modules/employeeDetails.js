@@ -1,5 +1,6 @@
 import { validateForm } from '../../validators/EmployeeValidator';
 import EmployeeService from '../../services/EmployeeService';
+import { formatDateWithoutTime } from '../../common/dates';
 
 const getInitialFormState = () => (
   {
@@ -17,19 +18,36 @@ const getError = (errors, field) => {
   return err ? err.error : undefined;
 };
 
-const submitNewEmployee = async () => {
-  const employeeService = new EmployeeService(localStorage.getItem('access_token'));
-  const createdEmployee = await employeeService.createNewEmployee(
-    {
-      Email: state.form.email,
-      FirstName: state.form.firstName,
-      LastName: state.form.lastName,
-      DateOfBirth: state.form.dateOfBirth,
-      StartDate: state.form.startDate
-    }
-  );
-  return createdEmployee;
+const newEmployeeService = () => new EmployeeService(localStorage.getItem('access_token'));
+
+const saveEmployeeDetails = async () => {
+  const employeeService = newEmployeeService();
+  const employeeToSave = mapEmployeeFromState();
+  let savedEmployee;
+  if (employeeToSave.employeeId) {
+
+  } else {
+    savedEmployee = await employeeService.createNewEmployee(employeeToSave);
+  }
+  return savedEmployee;
 };
+
+const mapEmployeeFromState = () => ({
+  Email: state.form.email,
+  FirstName: state.form.firstName,
+  LastName: state.form.lastName,
+  DateOfBirth: state.form.dateOfBirth,
+  StartDate: state.form.startDate
+});
+
+const mapEmployeeToState = e => ({
+  employeeId: e.EmployeeId,
+  firstName: e.FirstName,
+  lastName: e.LastName,
+  dateOfBirth: formatDateWithoutTime(e.DateOfBirth),
+  startDate: formatDateWithoutTime(e.StartDate),
+  email: e.Email
+});
 
 const state = {
   form: {
@@ -58,13 +76,17 @@ const actions = {
     commit('SET_VALIDATION_ERRORS', errors);
 
     if (errors.length === 0) {
-      const createdEmployee = await submitNewEmployee();
+      const createdEmployee = await saveEmployeeDetails();
       commit('SUBMIT_EMPLOYEE', createdEmployee);
       commit('RESET_EMPLOYEE');
     }
   },
   resetEmployee ({ commit }) {
     commit('RESET_EMPLOYEE');
+  },
+  async loadEmployee ({ dispatch }, employeeId) {
+    const employee = await newEmployeeService().getEmployee(employeeId);
+    dispatch('initialiseState', mapEmployeeToState(employee));
   }
 };
 

@@ -5,7 +5,11 @@
       <b-button class="text-button" variant="primary" @click="newEmployee">Create Employee</b-button>
     </b-card>
     <b-card class="body-card">
-      <b-table striped hover :fields="fields" :items="employees"></b-table>
+      <b-table striped hover :fields="fields" :items="employees">
+        <template slot="Details" slot-scope="data">
+          <b-button @click="employeeDetails(data.item.EmployeeId)">Details</b-button>
+        </template>
+      </b-table>
     </b-card>
   </div>
 </template>
@@ -19,7 +23,8 @@ export default {
       fields: [
         { key: 'FirstName', label: 'First name' },
         { key: 'LastName', label: 'Surname' },
-        { key: 'DateOfBirth', label: 'Date of birth' }
+        { key: 'DateOfBirth', label: 'Date of birth' },
+        { key: 'Details', label: '' }
       ]
     };
   },
@@ -29,6 +34,9 @@ export default {
   methods: {
     newEmployee () {
       this.$router.push('/employee/create');
+    },
+    employeeDetails (employeeId) {
+      this.$router.push(`/employee/${employeeId}`);
     }
   },
   created () {
